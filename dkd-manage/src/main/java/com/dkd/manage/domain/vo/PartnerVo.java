@@ -1,9 +1,11 @@
 package com.dkd.manage.domain.vo;
 
 import com.dkd.manage.domain.Partner;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class PartnerVo extends Partner {
 
 
