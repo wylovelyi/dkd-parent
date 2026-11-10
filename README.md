@@ -1,3 +1,36 @@
+> **关于本仓库**：这是基于 RuoYi 3.8.7 的**学习与二次开发项目**，基础框架和业务背景来自「帝可得」教学项目。下方「背景介绍 / 业务介绍」为上游原文；**我在这个仓库里实际写的代码**集中在 2026-06-30 的 5 个提交，见下一节。
+
+## 👤 我在这里做了什么
+
+新增 `dkd-manage` 业务模块，按 RuoYi 的分层把 5 个业务对象补齐成完整的增删改查链路：
+
+| 层次 | 内容 |
+| --- | --- |
+| 业务对象 | 点位 `Node`、区域 `Region`、合作商 `Partner`、人员 `Emp`、角色 `Role` |
+| Controller | `NodeController` / `RegionController` / `PartnerController` / `EmpController` / `RoleController` |
+| Service | 每个对象一套 `I*Service` 接口 + `*ServiceImpl` 实现 |
+| 持久层 | `*Mapper.java` 接口 + `resources/mapper/manage/*Mapper.xml`，`<where>` / `<if>` 动态 SQL |
+| 视图对象 | `NodeVo` / `PartnerVo` / `RegionVo`；`NodeVoResult` 用 `<association>` 关联 `Region`、`Partner`，并带设备数 `vmCount` |
+| 框架侧 | 调整 `GlobalExceptionHandler`、`application.yml` / `application-druid.yml`，并在 `pom.xml` 注册 `dkd-manage` 模块 |
+
+联调时修掉的具体问题：`NodeVo` 字段映射错误、`NodeMapper.xml` 列名歧义、前端点位页编译错误。
+
+**技术栈**：Java 8 · Spring Boot 2.5.x · MyBatis · Druid · MySQL · Maven（RuoYi 3.8.7 多模块）。
+
+**提交记录**（点开即 diff）：
+
+| 提交 | 说明 |
+| --- | --- |
+| [`37f10d42`](https://github.com/wylovelyi/dkd-parent/commit/37f10d42917b476c36c68615afd085a32d83f9e4) | feat: 新增点位管理、区域管理、合作商管理后端模块 |
+| [`1c2756b3`](https://github.com/wylovelyi/dkd-parent/commit/1c2756b34c9b52643a1676701b90093877d32f58) | fix: 修复 NodeVo 映射错误、NodeMapper.xml SQL 列模糊及前端点位管理页面编译错误 |
+| [`6a71cea4`](https://github.com/wylovelyi/dkd-parent/commit/6a71cea48ba7a4b6f7f6ab2e273dca12cdf0f25e) | fix: 更新全局异常处理器 |
+| [`7750b53c`](https://github.com/wylovelyi/dkd-parent/commit/7750b53c0bc4cba8a0771ca09e087ced9ee94de0) | feat: 新增人员管理、角色管理后端模块 |
+| [`f89629eb`](https://github.com/wylovelyi/dkd-parent/commit/f89629ebd116c06049fc00961868b170c0fb123e) | fix: 更新人员管理服务实现 |
+
+前端配套：[dkd-vue](https://github.com/wylovelyi/dkd-vue)。我的开源贡献（Apache Log4j2 / Alibaba fastjson2 等）见 [GitHub 主页](https://github.com/wylovelyi)。
+
+---
+
 <p align="center" >
 <span style="background-color: #5373e0;display: inline-block"> 
 <img alt="logo" src="https://likede2-admin.itheima.net/img/logo.3673fab5.png">
